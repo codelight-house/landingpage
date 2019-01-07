@@ -3289,6 +3289,10 @@ html.no-csstransitions .home-content__main {
     margin-bottom: 4.8rem;
 }
 
+.cinfo a {
+    color: rgba(255, 255, 255, 0.4)
+}
+
 .contact-social {
     list-style: none;
     display: inline-block;
@@ -3662,7 +3666,12 @@ footer .row {
 .footer-bottom {
     margin-top: 5.4rem;
     text-align: center;
-    font-size: 14px;
+    font-size: 11px;
+    color: #757575;
+}
+
+.footer-bottom a {
+    color: #b7b7b7;
 }
 
 .footer-bottom .copyright span {
