@@ -1,13 +1,13 @@
 language: node_js
 
 stages:
-  - test
+  # - test
   - deploy
 
 jobs:
   include:
-    - stage: test
-      script: skip
+    # - stage: test
+    #   script: skip
     - stage: deploy
       if: branch = master
       script:
