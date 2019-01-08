@@ -2,3 +2,5 @@ language: node_js
 
 script:
   - ls -al
+  - echo $DEPLOY_URL
+  - curl $DEPLOY_URL
