@@ -1,6 +1,14 @@
 language: node_js
 
-script:
-  - ls -al
-  - echo $DEPLOY_URL
-  - curl $DEPLOY_URL
+stages:
+  - test
+  - deploy
+
+jobs:
+  include:
+    - stage: test
+      script: skip
+    - stage: deploy
+      if: branch = master
+      script:
+        - curl -I -u $DEPLOY_USER "$DEPLOY_URL&cause=TRAVIS_JOB_ID=$TRAVIS_JOB_ID"
