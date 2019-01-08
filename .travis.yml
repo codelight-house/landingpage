@@ -11,4 +11,4 @@ jobs:
     - stage: deploy
       if: branch = master
       script:
-        - curl -I -u $DEPLOY_USER "$DEPLOY_URL&cause=TRAVIS_JOB_ID=$TRAVIS_JOB_ID"
+        - curl -s -I -u $DEPLOY_USER "$DEPLOY_URL&cause=TRAVIS_JOB_ID=$TRAVIS_JOB_ID" > /dev/null
