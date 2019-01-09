@@ -1,8 +1,7 @@
 ﻿<?php
 
 // Replace this with your own email address
-$siteOwnersEmail = 'user@website.com';
-
+$siteOwnersEmail = $_ENV['CONTACT_EMAIL'] ?? 'user@website.com';
 
 if($_POST) {
 
@@ -51,7 +50,7 @@ if($_POST) {
 
         if ($mail) { echo "OK"; }
         else { echo "Something went wrong. Please try again."; }
-        
+
     } # end if - no validation error
 
     else {
@@ -59,11 +58,12 @@ if($_POST) {
         $response = (isset($error['name'])) ? $error['name'] . "<br /> \n" : null;
         $response .= (isset($error['email'])) ? $error['email'] . "<br /> \n" : null;
         $response .= (isset($error['message'])) ? $error['message'] . "<br />" : null;
-        
+
         echo $response;
 
     } # end if - there was a validation error
 
+} else {
+    echo "Invalid method {$_SERVER['REQUEST_METHOD']} / {$siteOwnersEmail}";
 }
 
-?>

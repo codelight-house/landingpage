@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  # php-fpm to work with nginx
+  lp-php:
+    image: php:7.3-fpm-alpine
+    volumes:
+      - ./src:/var/www/html
+    mem_limit: 256m
+    restart: unless-stopped
+    ports:
+      - 9000:9000
