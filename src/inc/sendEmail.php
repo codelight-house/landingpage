@@ -3,6 +3,54 @@
 // Replace this with your own email address
 $siteOwnersEmail = $_ENV['CONTACT_EMAIL'] ?? 'user@website.com';
 
+function smtp_mail($to, $from, $message, $user, $pass, $host, $port)
+{
+	if ($h = fsockopen($host, $port))
+	{
+		$data = array(
+			0,
+			"EHLO $host",
+			'AUTH LOGIN',
+			base64_encode($user),
+			base64_encode($pass),
+			"MAIL FROM: <$from>",
+			"RCPT TO: <$to>",
+			'DATA',
+			$message
+		);
+		foreach($data as $c)
+		{
+			$c && fwrite($h, "$c\r\n");
+			while(substr(fgets($h, 256), 3, 1) != ' '){}
+		}
+		fwrite($h, "QUIT\r\n");
+		return fclose($h);
+	}
+}
+
+function testEmail($to, $from, $message, $subject) {
+    ini_set('default_socket_timeout', 3);
+    $user = $_ENV['SMTP_USER'];
+    $pass = $_ENV['SMTP_PASS'];
+    $host = $_ENV['SMTP_HOST'];
+    $port = $_ENV['SMTP_PORT'];
+    $template = "Subject: $subject\r\n"
+        ."To: <$to>\r\n"
+        ."From: $from\r\n"
+        ."MIME-Version: 1.0\r\n"
+        ."Content-Type: text/html; charset=utf-8\r\n"
+        ."Content-Transfer-Encoding: base64\r\n\r\n"
+        .base64_encode($message) . "\r\n.";
+    if(smtp_mail($to, $from, $template, $user, $pass, $host, $port))
+    {
+        echo "Mail sent\n\n";
+    }
+    else
+    {
+        echo "Some error occured\n\n";
+    }
+}
+
 if($_POST) {
 
     $name = trim(stripslashes($_POST['contactName']));
@@ -40,7 +88,7 @@ if($_POST) {
     $headers = "From: " . $from . "\r\n";
     $headers .= "Reply-To: ". $email . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    $headers .= "Content-Type: text/html; charset=utf-8\r\n";
 
 
     if (!$error) {
@@ -63,7 +111,5 @@ if($_POST) {
 
     } # end if - there was a validation error
 
-} else {
-    echo "Invalid method {$_SERVER['REQUEST_METHOD']} / {$siteOwnersEmail}";
 }
 
