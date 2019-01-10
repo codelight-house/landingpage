@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  lp-php:
+    # changed to develop without alpine images
+    image: php:7.3-fpm
+  http-server:
+    image: nginx:1.11.5
+    mem_limit: 64m
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+      - ./provision/vagrant/http-server:/etc/nginx/conf.d
+    ports:
+      - 80:80
