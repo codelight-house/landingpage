@@ -3,8 +3,13 @@
 namespace Codelight\Landingpage;
 
 class ContactForm {
+    /** @var \Maknz\Slack\Client */
+    private $slackClient;
+    public function __construct(\Maknz\Slack\Client $client) {
+        $this->slackClient = $client;
+    }
 
-    function send($fields): string {
+    public function send($fields): string {
         $name = trim(stripslashes($_POST['contactName']));
         $email = trim(stripslashes($_POST['contactEmail']));
         $subject = trim(stripslashes($_POST['contactSubject']));
@@ -27,11 +32,10 @@ class ContactForm {
 
 
         // Set Message
-        $message .= "Email from: " . $name . "<br />";
-        $message .= "Email address: " . $email . "<br />";
-        $message .= "Message: <br />";
-        $message .= $contact_message;
-        $message .= "<br /> ----- <br /> This email was sent from your site's contact form. <br />";
+        $message .= "Subject: *{$subject}*\n";
+        $message .= "From: *{$name}*\n";
+        $message .= "Email: *{$email}*\n";
+        $message .= "Message:\n```{$contact_message}```";
 
         // Set From: header
         $from =  $name . " <" . $email . ">";
@@ -44,12 +48,7 @@ class ContactForm {
 
 
         if (!$error) {
-
-            ini_set("sendmail_from", $siteOwnersEmail); // for windows server
-            $mail = mail($siteOwnersEmail, $subject, $message, $headers);
-
-            return ($mail) ? "OK" : "Something went wrong. Please try again.";
-
+            return ($this->sendToSlack($message)) ? "OK" : "Something went wrong. Please try again.";
         } # end if - no validation error
 
         else {
@@ -61,6 +60,15 @@ class ContactForm {
             return $response;
 
         } # end if - there was a validation error
+    }
+
+    private function sendToSlack($message) {
+        $this->slackClient->attach([
+            'fallback' => 'New contact form data',
+            'text' => $message,
+            'mrkdwn_in' => ['text']
+        ])->send('New contact form data');
+        return true;
     }
 
 }

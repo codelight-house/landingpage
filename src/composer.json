@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "slim/slim": "^3.11",
-        "maknz/slack": "^1.7"
+        "maknz/slack": "^1.7",
+        "vlucas/phpdotenv": "^3.1"
     },
     "autoload": {
         "psr-4": { "Codelight\\Landingpage\\": "lib/" }

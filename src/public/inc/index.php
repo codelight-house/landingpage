@@ -1,20 +1,26 @@
 <?php
-
 require __DIR__.'/../../vendor/autoload.php';
 
-// Create and configure Slim app
-$config = ['settings' => [
-    'addContentLengthHeader' => false,
-]];
-$app = new \Slim\App($config);
+use Codelight\Landingpage\ContactForm;
 
-// Define app routes
+$dotenv = Dotenv\Dotenv::create(__DIR__.'/../../');
+$dotenv->load();
+
+$container = new \Slim\Container();
+$container[ContactForm::class] = function($container) {
+    return new ContactForm($container[\Maknz\Slack\Client::class]);
+};
+$container[\Maknz\Slack\Client::class] = function($container) {
+    return new \Maknz\Slack\Client($_ENV['SLACK_URL']);
+};
+
+$app = new \Slim\App($container);
+
 $app->post('/send-email', function ($request, $response, $args) {
     $body = $request->getParsedBody();
-    $contactForm = new \Codelight\Landingpage\ContactForm();
+    $contactForm = $this->get(ContactForm::class);
     $message = $contactForm->send($body);
     return $response->write($message);
 });
 
-// Run app
 $app->run();

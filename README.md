@@ -31,3 +31,10 @@ docker-compose up -d
 ```
 
 http://codelighthouse.vagrant/
+
+## API configuration
+
+Put configutation in `<root>/src/.env` file or configure server to provide environmental variables:
+```
+SLACK_URL= #enter valid incomming webhook URL
+```

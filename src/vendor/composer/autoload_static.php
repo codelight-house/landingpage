@@ -42,6 +42,10 @@ class ComposerStaticInit7e0affdbb28d55c0cb5b547d2a4f64d5
         array (
             'FastRoute\\' => 10,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
         'C' => 
         array (
             'Codelight\\Landingpage\\' => 22,
@@ -85,6 +89,10 @@ class ComposerStaticInit7e0affdbb28d55c0cb5b547d2a4f64d5
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
         'Codelight\\Landingpage\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib',
@@ -97,6 +105,10 @@ class ComposerStaticInit7e0affdbb28d55c0cb5b547d2a4f64d5
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
             ),
         ),
     );
