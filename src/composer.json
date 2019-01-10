@@ -3,7 +3,8 @@
     "description": "landingpage",
     "type": "project",
     "require": {
-        "slim/slim": "^3.11"
+        "slim/slim": "^3.11",
+        "maknz/slack": "^1.7"
     },
     "autoload": {
         "psr-4": { "Codelight\\Landingpage\\": "lib/" }
