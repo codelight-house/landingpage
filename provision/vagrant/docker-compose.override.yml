@@ -4,6 +4,8 @@ services:
   lp-php:
     # changed to develop without alpine images
     image: php:7.3-fpm
+    volumes:
+      - ./src:/var/www/html
   http-server:
     image: nginx:1.11.5
     mem_limit: 64m
