@@ -28,6 +28,10 @@ class ComposerStaticInit7e0affdbb28d55c0cb5b547d2a4f64d5
         array (
             'FastRoute\\' => 10,
         ),
+        'C' => 
+        array (
+            'Codelight\\Landingpage\\' => 22,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -50,6 +54,10 @@ class ComposerStaticInit7e0affdbb28d55c0cb5b547d2a4f64d5
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Codelight\\Landingpage\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib',
         ),
     );
 

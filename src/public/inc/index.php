@@ -1,4 +1,7 @@
 <?php
+
+require __DIR__.'/../../vendor/autoload.php';
+
 // Create and configure Slim app
 $config = ['settings' => [
     'addContentLengthHeader' => false,
@@ -6,8 +9,11 @@ $config = ['settings' => [
 $app = new \Slim\App($config);
 
 // Define app routes
-$app->get('/api/{name}', function ($request, $response, $args) {
-    return $response->write("Hello " . $args['name']);
+$app->post('/send-email', function ($request, $response, $args) {
+    $body = $request->getParsedBody();
+    $contactForm = new \Codelight\Landingpage\ContactForm();
+    $message = $contactForm->send($body);
+    return $response->write($message);
 });
 
 // Run app

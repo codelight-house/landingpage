@@ -4,5 +4,8 @@
     "type": "project",
     "require": {
         "slim/slim": "^3.11"
+    },
+    "autoload": {
+        "psr-4": { "Codelight\\Landingpage\\": "lib/" }
     }
 }
