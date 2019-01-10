@@ -1,0 +1,8 @@
+{
+    "name": "codelight-house/landingpage",
+    "description": "landingpage",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.11"
+    }
+}
