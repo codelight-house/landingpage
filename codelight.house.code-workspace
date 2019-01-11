@@ -1,0 +1,8 @@
+{
+	"folders": [{
+		"path": "."
+	}],
+	"settings": {
+		"liveServer.settings.root": "/src/public/"
+	}
+}
